@@ -1,0 +1,29 @@
+.spriteCircle {
+    height: 400px;
+    width: 400px;
+    background: url("../img/sprite_circle.jpg")
+      0px 0px;
+      animation: spriteCircle 10s steps(24) infinite;
+    }
+    @keyframes spriteCircle {
+      100% {
+        background-position: -9600px;
+      }
+    }
+
+    
+
+#spriteFlame {
+      height: 360px;
+      width: 130px;
+      background: url("../img/sprite2.jpg")
+        0px 0px;
+        animation: spriteImage 3s steps(7) infinite;
+      }
+      @keyframes spriteImage {
+        100% {
+          background-position: -910px;
+        }
+      }
+
+    
