@@ -42,3 +42,7 @@
         align-items: center;
     }
 /*END Aufgabe 1*/
+
+a.nav-link.active{
+  border-bottom:1px solid black;
+}
