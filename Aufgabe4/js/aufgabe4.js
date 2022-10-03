@@ -149,7 +149,7 @@ window.onload = function () {
                     var h = 1+Math.pow(u,2)*Math.sin(v)*Math.sin(v);
                     //var h = Math.pow(Math.E, u / (6 * Math.PI));
            
-                    var x = (2*((Math.cos(u)+u*Math.sin(u)))*Math.sin(v))/h;
+                    var x = (2*((Math.cos(u)+u*Math.sin( )))*Math.sin(v))/h;
                    // var x = (a * (1 - h) * Math.cos(u) * Math.cos(0.5 * v) * Math.cos(0.5 * v)) * c;
     
                    var y = (2*(-u*Math.cos(u)+Math.sin(u)))*Math.sin(v)/h;

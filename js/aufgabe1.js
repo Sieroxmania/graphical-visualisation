@@ -1,21 +1,4 @@
-/*
-Aufgabenstellung: Implementieren Sie eine sich drehende 2D-Scheibe aus Einzelbildern, welche Sie mit JavaScript laden und in einem <img> Image-Element zeigen (nicht im Canvas). 
-Die Einzelbilder sollen, ähnlich wie bei einer Sprite-Sheet-Animation ode einem Animationsfilm, so ausgetauscht und eingeblendet werden, dass visuell 
-der Eindruck einer Rotation entsteht. Auf jedem Einzelbild ist ein Rotationszustand der Scheibe zu sehen, z.B.: 0°, 15°, 30°,...  
-
-Es ist Ihnen überlassen, ob sie die Bilder auf mehrere Dateien verteilen, oder alle Bilder der Animation als Sprite-Sheet also in einer Datei anordnen.
-
-Interaktion: Auf den Tastendruck 'l' oder 'r' soll sich die Scheibe augenscheinlich ein Stück nach links beziehungsweise nach rechts drehen. Zum Drehen muss man wiederholt drücken. 
-
-Hinweise: Sie können über die css Eigenschaften clip, backgroundPosition und andere, einen Bildausschnitt wählen, z.B. clip: rect(10px, 20px, 30px, 40px);. 
-
-Erweiterungen: 
-
-Außer einer Scheibe kreieren und animieren Sie noch ein anderes Objekt Ihrer Wahl als Sprite-Sheet, z.B einen hüpfenden Hasen.
-Die Scheibe dreht sich automatisch mit Taste "a", dazu muss diese kontinuierlich animiert werden.
-*/
-
-
+// START Aufgabe 1
 let position = 0;
 
 document.addEventListener('keyup', (e) => {
@@ -117,9 +100,10 @@ function rotateCircle() {
     let circleContainer = document.getElementById("circleContainer");
     if (circleContainer.classList.contains("spriteCircle")){
       circleContainer.classList.remove("spriteCircle");
-      circleImages.style.display="block";
+      circleImages.style.display="inline-flex";
     }else {
       circleImages.style.display="none";
       circleContainer.classList.add('spriteCircle');
     }
   }
+// END Aufgabe 1

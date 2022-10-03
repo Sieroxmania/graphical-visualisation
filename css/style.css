@@ -1,4 +1,6 @@
+/*START Aufgabe 1*/
 .spriteCircle {
+  display:inline-flex;
     height: 400px;
     width: 400px;
     background: url("../img/sprite_circle.jpg")
@@ -27,3 +29,16 @@
       }
 
     
+
+      .spriteCircle{
+        height: 400px;
+        width: 400px;
+      }
+
+
+      #spriteContainer{
+        display: inline-flex!important;
+        flex-direction: column;
+        align-items: center;
+    }
+/*END Aufgabe 1*/
