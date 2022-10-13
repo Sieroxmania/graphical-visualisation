@@ -17,7 +17,6 @@ document.addEventListener('keyup', (e) => {
     } 
     return;
   }
-  console.log("what");
     endAnimation();
     checkPositionLimit();
     outputImage(position);
