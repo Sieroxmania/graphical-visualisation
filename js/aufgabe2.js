@@ -47,7 +47,7 @@ window.onload = function () {
   //fragment shader source code - Color
   var fragCode =
     'void main(void) {' +
-    'gl_FragColor = vec4(0.831, 0.808, 0.016, 1);' +
+    'gl_FragColor = vec4(1, 1, 1, 1);' +
     '}';
 
   // END Aufgabe 2 - Line Color
