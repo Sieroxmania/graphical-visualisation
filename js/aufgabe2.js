@@ -84,7 +84,7 @@ window.onload = function () {
 
   // START Aufgabe 2 - Canvas Color
   // Clear the canvas
-  gl.clearColor(0.051, 0.573, 0.388, 1); //Background color
+  gl.clearColor(0, 0, 0, 1); //Background color
   // END Aufgabe 2 - Canvas Color
 
   // Enable the depth test
