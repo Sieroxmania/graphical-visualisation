@@ -1,6 +1,6 @@
 window.onload = function () {
   var canvas = document.getElementById('lineFigure');
-  var gl = canvas.getContext('experimental-webgl');
+  var gl = canvas.getContext('webgl');
 
   /*======== Defining and storing the geometry ===========*/
 
@@ -47,7 +47,7 @@ window.onload = function () {
   //fragment shader source code - Color
   var fragCode =
     'void main(void) {' +
-    'gl_FragColor = vec4(1, 1, 1, 1);' +
+    'gl_FragColor = vec4(0.831, 0.808, 0.016, 1);' +
     '}';
 
   // END Aufgabe 2 - Line Color
@@ -84,7 +84,7 @@ window.onload = function () {
 
   // START Aufgabe 2 - Canvas Color
   // Clear the canvas
-  gl.clearColor(0, 0, 0, 1); //Background color
+  gl.clearColor(0.051, 0.573, 0.388, 1); //Background color
   // END Aufgabe 2 - Canvas Color
 
   // Enable the depth test
