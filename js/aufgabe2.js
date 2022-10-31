@@ -1,6 +1,6 @@
 window.onload = function () {
   var canvas = document.getElementById('lineFigure');
-  var gl = canvas.getContext('webgl');
+  var gl = canvas.getContext('experimental-webgl');
 
   /*======== Defining and storing the geometry ===========*/
 
@@ -89,7 +89,7 @@ window.onload = function () {
   // END Aufgabe 2 - Canvas Color
 
   // Enable the depth test
-  gl.enable(gl.DEPTH_TEST);
+ // gl.enable(gl.DEPTH_TEST);
 
   // Clear the color buffer bit
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -99,7 +99,7 @@ window.onload = function () {
   
   // START Aufgabe 2 - draw Array
   // Draw the Line
-  gl.drawArrays(gl.LINE_LOOP, 0, 35);
+  gl.drawArrays(gl.LINE_LOOP, 0, vertices.length/2);
   // END Aufgabe 2 - draw Array
 }
 
