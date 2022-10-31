@@ -1,6 +1,6 @@
 window.onload = function () {
   var canvas = document.getElementById('lineFigure');
-  var gl = canvas.getContext('webgl');
+  var gl = canvas.getContext('experimental-webgl');
 
   /*======== Defining and storing the geometry ===========*/
 
