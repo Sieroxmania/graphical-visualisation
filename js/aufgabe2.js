@@ -33,6 +33,7 @@ window.onload = function () {
     'attribute vec2 coordinates;' +
     'void main(void) {' +
     'gl_Position = vec4(coordinates * 0.85, 0, 4);' +
+    'gl_PointSize = 10.0; }'; + 
     '}';
 
   // END Aufgabe 2 - Position
