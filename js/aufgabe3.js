@@ -5,30 +5,76 @@ window.onload = function () {
 
   /*======== Defining and storing the geometry ===========*/
 
+  // START Aufgabe 3 - Vertices, Indices and Color
   var vertices = new Float32Array([
-    -0.5,0.5,0.0,
-    0.0,1.25,0.0,
-    0.5,0.5,0.0,
-   1.25,0.0,0.0,
-    0.5,-0.5,0.0,
-    0.0,-1.25,0.0,
-    -0.5,-0.5,0.0,
-    -1.25,0.0,0.0
+    //Symbol
+    -0.5, 0, 0, //0
+    0, 1, 0,    //1
+    0.5, 0, 0,  //2
+    1,-1,0,   //3
+    0,-1,0,   //4
+    -1,-1,0,  //5
+
+    //Shield - Border
+    0,3.5,0, //6
+    2,2,0, //7
+    2.5,1,0, //8
+    2,-2,0, //9
+    1.25,-3.25,0, //10
+    0,-4,0, //11
+    -1.25,-3.25,0, //12
+    -2,-2,0, //13
+    -2.5,1,0,//14
+    -2,2,0,//14
   ]);
 
-  
   var indices = new Uint16Array([
- 0,1,2,0,7,6,4,5,6,4,3,2,4,6,0,4,2,0
+    0,1,2,
+    0,5,4,
+    0,2,4,
+    4,3,2,
+    
+    1,6,7,
+    1,7,2,
+    2,8,7,
+      
+    2,8,9,
+    2,9,3,
+    3,9,10,
+    3,10,11,
+    3,11,4,
+
+    4,11,5,
+    5,11,12,
+    5,12,13,
+    5,13,0,
+
+    0,13,14,
+    0,14,15,
+    0,15,1,
+    1,15,6,1
   ]);
 
   var colors = new Float32Array([
-0,0,1, 1,0,0, 0,1,0, 
-1,0,1, 0,0,1,
-1,0,0, 0,1,0, 
-1,0,1,
-
-
+    0.769, 0.659, 0.024,
+    0.769, 0.659, 0.024,
+    0.769, 0.659, 0.024,
+    0.769, 0.659, 0.024,
+    0.769, 0.659, 0.024,
+    0.769, 0.659, 0.024,
+    
+    0.769, 0.659, 0.024,
+    0.161, 0.357, 0.851,
+    0.769, 0.659, 0.024,
+    0.161, 0.357, 0.851,
+    0.769, 0.659, 0.024,
+    0.161, 0.357, 0.851,
+    0.769, 0.659, 0.024,
+    0.161, 0.357, 0.851,
+    0.769, 0.659, 0.024,
+    0.161, 0.357, 0.851,
   ]);
+  // END Aufgabe 3 - Vertices, Indices and Color
 
   // Create an empty buffer object to store vertex buffer
   var vertex_buffer = gl.createBuffer();
@@ -58,14 +104,16 @@ window.onload = function () {
 
   /*================ Shaders ====================*/
 
-  // Vertex shader source code
+  // START Aufgabe 3 - Vertex shader
   var vertCode = 'attribute vec3 coordinates;'+
   'attribute vec3 color;'+
   'varying vec3 vColor;'+
   'void main(void) {' +
-     ' gl_Position = vec4(coordinates, 1.5);' +
+     ' gl_Position = vec4(coordinates, 4.25);' +
      'vColor = color;'+
   '}';
+  // END Aufgabe 3 - Vertex shader
+
   // Create a vertex shader object
   var vertShader = gl.createShader(gl.VERTEX_SHADER);
   // Attach vertex shader source code
@@ -75,13 +123,13 @@ window.onload = function () {
 
 
 
-  //fragment shader source code
+  // START Aufgabe 3 - fragment shader
   var fragCode = 'precision mediump float;'+
   'varying vec3 vColor;'+
   'void main(void) {'+
      'gl_FragColor = vec4(vColor, 1.);'+
   '}';
-
+  // END Aufgabe 3 - fragment shader
     
   // Create fragment shader object
   var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -121,18 +169,23 @@ window.onload = function () {
   gl.enableVertexAttribArray(coord);
 
   //bind the color buffer
-         gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer);
-         // get the attribute location
-         var color = gl.getAttribLocation(shaderProgram, "color");
-         // point attribute to the volor buffer object
-         gl.vertexAttribPointer(color, 3, gl.FLOAT, false,0,0) ;
-         // enable the color attribute
-         gl.enableVertexAttribArray(color);
+  gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer);
+  // get the attribute location
+  var color = gl.getAttribLocation(shaderProgram, "color");
+  //START Aufgabe 3 - point to color buffer
+  gl.vertexAttribPointer(color, 3, gl.FLOAT, false,0,0) ;
+  //END Aufgabe 3 - point to color buffer
+
+  // enable the color attribute
+  gl.enableVertexAttribArray(color);
 
   /*=========Drawing the triangle===========*/
 
+  // START Aufgabe 3 - Canvas Color
   // Clear the canvas
-  gl.clearColor(0,0,0,0);
+  gl.clearColor(0.063, 0.133, 0.22, 1);
+  // END Aufgabe 3 - Canvas Color
+
 
   // Enable the depth test
   gl.enable(gl.DEPTH_TEST);
@@ -143,7 +196,8 @@ window.onload = function () {
   // Set the view port
   gl.viewport(0, 0, canvas.width, canvas.height);
 
-  // Draw the triangle
+  // START Aufgabe 3 - draw Triangle
   gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+  // END Aufgabe 3 - draw Array
 }
 
