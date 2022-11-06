@@ -43,8 +43,4 @@ function outputImage(){
   let cirleImages = document.getElementById("circleImages");
       cirleImages.src = "img/"+position+".jpg";
 }
-
-
-
-
 // END Aufgabe 1
