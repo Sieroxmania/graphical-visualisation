@@ -1,0 +1,116 @@
+        <!DOCTYPE html>
+        <html lang="de">
+        
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>GVT - Aufgabe 4 Teil 2</title>
+          <link rel="stylesheet" type="text/css" href="css/style.css">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        </head>
+        <!-- START Aufgabe 4_2 - Body -->
+        <body>
+          <header>
+            <nav class="navbar bg-light navbar-expand-lg">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Graphical Visualisation Technology</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                  aria-controls="offcanvasNavbar">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Graphical Visualisation Technology</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                      <li class="nav-item">
+                        <a class="nav-link" href="aufgabe1.html">Aufgabe 1</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="aufgabe2.html">Aufgabe 2</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="aufgabe3.html">Aufgabe 3</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="aufgabe4.html">Aufgabe 4</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 5</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 6</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 7</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 8</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 9</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Aufgabe 10</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Bonus</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </header>
+        
+        
+        
+          <div class="container">
+            <div class="row my-5 align-items-center">
+              <div class="col-md-12 my-2 text-center">
+                <button onclick="switchData()" type="button" class="btn btn-primary">Zeige Teilaufgabe 1 & 2</button>
+              </div>
+            </div>
+            <div class="row my-5 align-items-center">
+              <div class="col-md-12 my-0 text-center">
+                <h2>EA 4: Teilaufgabe 3</h2>
+                <p>(3) Kreieren Sie auch eine eigene Parametrisierung für eine Fläche und kolorieren Sie diese. Dazu sollen Sie sich eine neue Formel ausdenken.</p>
+                <canvas id="parameterizedFigure" class="img-fluid" width="640" height="480"></canvas>
+                <h2>Eigene Fläche "Bonbon"</h2>
+                <p>Basiert auf <a href="http://www.3d-meier.de/tut3/Seite239.html">Goblet</a></p>
+                <p>
+                  <ul>
+                    <li>x und y wurden vertauscht um Die Fläche aus der Top-Perspektive darzustellen</li>
+                    <li>Anschließend wurde ein Radius erstellt und mit x multipliziert. </li>
+                    <li>Zuletzt wurde der Wertebereich, sowie sie Werte x,y und z für bessere Proportionen angepasst.</li>
+                    </ul>
+                </p>
+                <p><b>
+                  u ist Element aus der Zahlenmenge [0, pi]<br>
+                  v ist Element aus der Zahlenmenge [0, 2 pi]<br>
+                  r = cos(u)<br>
+                  x = -1.75 * sin(v) * r<br>
+                  y = 1.2 * cos(u) * cos(2v)<br>
+                  z = sin(u) * cos(2v)<br>
+                </b></p>
+              </div>
+            </div>
+            </div>
+         
+          <footer class="py-3 my-4">
+            <p class="text-center text-muted">© 2022 Sieroxmania</p>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+              integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+              crossorigin="anonymous"></script>
+            <script type="text/javascript" src="js/aufgabe4_2.js"></script>
+           
+          </footer>
+        </body>
+        <!-- END Aufgabe 4_2 - Body -->
+        </html>
+        
+        
+        
