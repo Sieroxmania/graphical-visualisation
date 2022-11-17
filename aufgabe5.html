@@ -1,16 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graphical Visualisation Technology</title>
+  <title>GVT - Aufgabe 5</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+    <script src="ext/gl-matrix.js"></script>
+    <script src="js/Aufgabe5/GVT_Src_vertexData_torus.js"></script>
+    <script src="js/Aufgabe5/GVT_Src_vertexData_plane.js"></script>
+    <script src="js/Aufgabe5/GVT_Src_vertexData_spiral.js"></script>
+    <script src="js/Aufgabe5/GVT_Src_vertexData_icosphere.js"></script>
+    <script src="js/Aufgabe5/KAP_Src_tpl.js"></script>
+    <script type="x-shader/x-vertex" id="vertexshader">
+        attribute vec3 aPosition;
+        attribute vec3 aNormal;
 
-<body>
+        uniform mat4 uPMatrix;
+        uniform mat4 uMVMatrix;
+
+        varying vec4 vColor;
+
+        void main(){
+            gl_Position = uPMatrix * uMVMatrix * vec4(aPosition, 1.0);
+
+            vColor = vec4(aNormal.x, aNormal.y, aNormal.z, 1.0);
+            vColor = (vColor + 1.0) / 2.0;
+        }
+    </script>
+    <script type="x-shader/x-fragment" id="fragmentshader">
+        precision mediump float;
+        varying vec4 vColor;
+
+        void main() {
+            gl_FragColor = vColor;
+        }
+    </script>
+  </head>
+
+<body onload="app.start()">
   <header>
     <nav class="navbar bg-light navbar-expand-lg">
       <div class="container-fluid">
@@ -39,7 +69,7 @@
                 <a class="nav-link" href="aufgabe4.html">Aufgabe 4</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="aufgabe5.html">Aufgabe 5</a>
+                <a class="nav-link active" aria-current="page" href="aufgabe5.html">Aufgabe 5</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Aufgabe 6</a>
@@ -66,13 +96,23 @@
     </nav>
   </header>
 
-
-
   <div class="container">
     <div class="row my-5 align-items-center">
-      <div class="col-md-12 my-5 text-center">
-        <h1>Hello, world!</h1>
+      <div class="col-md-12 my-4 text-center">
+        <h2>EA 5: Kamerabewegung</h2>
+        <p>1. Erstellen Sie eine Szene aus mindestens zwei Grundkörpern. Sie soll interaktiv von allen Seiten einsehbar sein. <br>
+        2. Erstellen Sie eine rekursives Kugel Modell, die Tiefe der Rekursion soll interaktiv einstellbar sein.</p>
+        <canvas id="canvas" class="img-fluid" width="700" height="500"></canvas>
       </div>
+      <div class="col-md-12 my-0 text-center">
+        <h3>Steuerung</h3>
+        <p>Bewegung der Kamera über die Pfeiltasten: <b>← ↑ → ↓</b><br>
+        Veränderung der Distanz zur Mitte mit "<b>N</b>" und "<b>Shift-N</b>"<br>
+        hineinzoomen mit "<b>+</b>", herauszoomen mit "<b>-</b>"<br></p>
+        <button id="increaseDepht" type="button" class="btn btn-success">Increase</button>
+        <input class="text-center" readonly id="recursionDepth" value="0" min="0" max="4">
+        <button id="decreaseDepht" type="button" class="btn btn-danger">Decrease</button>
+    </div>
 
     </div>
   </div>
