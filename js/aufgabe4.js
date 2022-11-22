@@ -244,7 +244,7 @@ function createVertexDataShape() {
      var n = 40; 
      var m = 25; 
      var a = 1.5; 
-     var b = 0.2; 
+     var b = 0.25; 
      var du = 2 * Math.PI / n;
      var dv = 2 * Math.PI / m;
 
@@ -271,7 +271,7 @@ function createVertexDataShape() {
              var iVertex = i * (m + 1) + j;
              	
              var x = ( a + b *(Math.cos(u/2)*Math.sin(v)-Math.sin(u/2)*Math.sin(2*v)))*Math.cos(u);
-             var y = b*(Math.sin(u/2)*Math.sin(v) + Math.cos(u/2)*Math.sin(2*v));
+             var y = (b*(Math.sin(u/2)*Math.sin(v) + Math.cos(u/2)*Math.sin(2*v)));
              var z = (a+b *(Math.cos(u/2)*Math.sin(v)-Math.sin(u/2)*Math.sin(2*v)))*Math.sin(u);
              //x und y vertauscht für top oder side Ansicht.
 
