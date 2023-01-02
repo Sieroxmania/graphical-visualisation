@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GVT - Aufgabe 9 Teil 2</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="ext/gl-matrix.js"></script>
+    <script src="js/Aufgabe9_2/GVT_Src_vertexData_torus.js"></script>
+    <script src="js/Aufgabe9_2/GVT_Src_vertexData_plane.js"></script>
+    <script src="js/Aufgabe9_2/GVT_Src_vertexData_sphere.js"></script>
+    <script src="js/Aufgabe9_2/KAP_Src_tpl.js"></script>
+    <script type="x-shader/x-vertex" id="vertexshader">
+			attribute vec3 aPosition;
+			attribute vec3 aNormal;
+			attribute vec2 aTextureCoord;
+
+			uniform mat4 uPMatrix;
+			uniform mat4 uMVMatrix;
+			uniform mat3 uNMatrix;
+
+			varying vec3 vNormal;
+			varying vec4 vPosition;
+			varying vec2 vTextureCoord;
+
+			void main(){
+				// Calculte vertex position in eye coordinates. 
+				vec4 tPosition = uMVMatrix * vec4(aPosition, 1.0);
+				// Calculate projektion.
+				gl_Position = uPMatrix * tPosition;
+	
+				vec3 tNormal = normalize(uNMatrix * aNormal);
+				tNormal = uNMatrix * aNormal;
+				
+				vPosition = tPosition;
+				vNormal = tNormal;
+				
+				vTextureCoord = aTextureCoord;		
+			}
+		</script>
+    <script type="x-shader/x-fragment" id="fragmentshader">
+      precision mediump float;
+			
+			uniform sampler2D uTexture;
+			
+			varying vec2 vTextureCoord;
+						
+			varying vec3 vNormal;
+			varying vec4 vPosition;
+			
+			
+			// Material.
+			struct PhongMaterial {
+				vec3 ka;
+				vec3 kd;
+				vec3 ks;
+				float ke; 
+			};
+			uniform PhongMaterial material;
+			
+			// Ambient light.
+			uniform vec3 ambientLight;
+			
+			// Pointlights.
+			const int MAX_LIGHT_SOURCES = 8;
+			struct LightSource {
+				bool isOn;
+				vec3 position;
+				vec3 color;
+			};
+			uniform LightSource light[MAX_LIGHT_SOURCES];
+			
+			// Phong illumination for single light source,
+			// no ambient light.
+			vec3 phong(vec3 p, vec3 n, vec3 v, LightSource l) {
+			
+				vec3 L = l.color;
+			
+				vec3 s = normalize(l.position - p);
+				vec3 r = reflect(-s, n);
+				
+				float sn = max( dot(s,n), 0.0);
+				float rv = max( dot(r,v), 0.0);
+							
+				vec3 diffuse = material.kd * L * sn;								
+				vec3 specular = material.ks * L * pow(rv, material.ke);
+			
+				return diffuse + specular;			
+			}
+			
+			// Phong illumination for multiple light sources
+			vec3 phong(vec3 p, vec3 n, vec3 v) {
+			
+				// Calculate ambient light.
+				vec3 result = material.ka * ambientLight;
+				
+				// Add light from all light sources.
+				for(int j=0; j < MAX_LIGHT_SOURCES; j++){
+					if(light[j].isOn){
+						result += phong(p, n, v, light[j]);
+					}
+				}
+				return result;
+			}
+      
+	
+
+      //START Aufgabe 9_2
+			void main() {
+				// Calculate view vector.
+				// For ortho projection:
+				vec3 v = vec3(0,0,-1);
+				vec3 vNormal = normalize(vNormal);
+
+       vec4 tColor;
+       float aStripe = mod(vTextureCoord.s * 16., 2.);
+       float bStripe = mod(vTextureCoord.t * 8., 2.);	
+       if (mod(aStripe+bStripe, 2.0) > 1.) {  
+        tColor = vec4(0.769, 0.659, 0.024, 1.0); // gold
+       }else if (mod(aStripe+bStripe, 2.0) > .5) {  
+         tColor = vec4(1.0, 0.5, 0.5, 1.0); // blue
+       }else { 
+        tColor = vec4(0.161, 0.357, 0.851, 1.0); // light blue
+      }
+
+				float strips = mod(floor(vTextureCoord.s * 36.), 2.);
+				vec4 lighting = vec4( phong(vPosition.xyz, vNormal, v), 1.0);
+				gl_FragColor = tColor * lighting;
+			}			
+      //END  Aufgabe 9_2
+		</script>
+    <script>
+      function switchData(){
+    window.location='aufgabe9.html';
+}
+
+    </script>
+  </head>
+
+<body onload="app.start()">
+  <header>
+    <nav class="navbar bg-light navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Graphical Visualisation Technology</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Graphical Visualisation Technology</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe1.html">Aufgabe 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe2.html">Aufgabe 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe3.html">Aufgabe 3</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe4.html">Aufgabe 4</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe5.html">Aufgabe 5</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe6.html">Aufgabe 6</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe7.html">Aufgabe 7</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe8.html">Aufgabe 8</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="aufgabe9.html">Aufgabe 9</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="aufgabe10.html">Aufgabe 10</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Bonus</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="row my-5 align-items-center">
+      <div class="col-md-12 my-2 text-center">
+        <button onclick="switchData()" type="button" class="btn btn-primary">Zeige Teilaufgabe 1</button>
+      </div>
+      <div class="col-md-12 my-4 text-center">
+        <h2>EA 9: Prozedurale Torustextur</h2>
+        <p>2. Entwerfen und realisieren Sie eine prozedurale Textur für den Torus.</p>
+        <canvas id="canvas" class="img-fluid" width="700" height="500"></canvas>
+      </div>
+      <div class="col-md-12 my-0 text-center">
+        <h3>Steuerung</h3>
+        <p>Bewegung der Kamera über die Pfeiltasten: <b>← ↑ → ↓</b><br>
+        Veränderung der Distanz zur Mitte mit "<b>N</b>" und "<b>Shift-N</b>"<br>
+        hineinzoomen mit "<b>+</b>", herauszoomen mit "<b>-</b>"<br></p>
+        <br>
+        <p>Die prozeduale Textur wurde selber erstellt.</p>
+    </div>
+
+    </div>
+  </div>
+
+
+
+  <footer class="py-3 my-4">
+    <p class="text-center text-muted">© 2022 Sieroxmania</p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"></script>
+  </footer>
+</body>
+
+</html>
